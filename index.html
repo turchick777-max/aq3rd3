@@ -7,16 +7,19 @@
   <style>
     :root{
       --bg:#000000;
-      --line: rgba(74,144,164,0.30);
-      --line-strong: rgba(74,200,220,0.70);
+      --panel:#0a0f16;
+      --card: rgba(10,20,30,0.55);
+      --border: rgba(74,144,164,0.30);
+      --border-strong: rgba(74,200,220,0.55);
+
       --text:#ffffff;
-      --muted:#888888;
-      --micro:#666666;
-      --card: rgba(10,20,30,0.40);
-      --border: rgba(74,144,164,0.40);
+      --muted:#9aa3ad;
+      --micro:#6f7782;
+
       --green:#44cc88;
       --red:#ff4444;
       --blue:#4488ff;
+
       --glow: rgba(74,200,220,0.40);
     }
 
@@ -27,32 +30,32 @@
       background: var(--bg);
       color:var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      overflow:hidden; /* no scroll on desktop */
+      overflow:hidden; /* desktop: one screen */
     }
 
     .section{
       height:100vh;
       width:100%;
       position:relative;
-      padding: 16px 20px 14px;
+      padding: 18px 22px 14px;
       display:grid;
       grid-template-rows: auto 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
-    /* language toggle (top-right) */
+    /* language toggle */
     .lang{
       position:absolute;
-      top:12px; right:12px;
+      top:14px; right:14px;
       display:flex; gap:8px;
-      z-index:50;
+      z-index:40;
     }
     .lang button{
       border:1px solid var(--border);
       background:transparent;
       color:var(--muted);
       padding:8px 10px;
-      font: 500 12px/1 Inter, system-ui, sans-serif;
+      font: 600 12px/1 Inter, system-ui, sans-serif;
       letter-spacing: .18em;
       text-transform:uppercase;
       cursor:pointer;
@@ -62,84 +65,56 @@
       border-color: rgba(74,200,220,0.65);
     }
 
-    /* header */
-    .header{
-      text-align:center;
-      padding-top:2px;
-    }
+    /* title */
+    .header{ text-align:center; }
     .title{
       margin:0;
       font-weight:300;
       letter-spacing:.24em;
       text-transform:uppercase;
-      font-size: clamp(20px, 2.0vw, 34px);
+      font-size: clamp(20px, 2.1vw, 34px);
     }
     .title-underline{
       width: min(560px, 74vw);
       height:1px;
       margin: 10px auto 0;
-      background: var(--line-strong);
+      background: var(--border-strong);
     }
 
-    /* blueprint area */
+    /* blueprint area (no decorative grid) */
     .bp{
       position:relative;
       width:100%;
       height:100%;
-      /* reserve for bottom logo */
-      padding-bottom: 150px;
+      padding-bottom: 152px; /* reserve for bottom logo */
     }
 
-    /* center divider */
+    /* ONLY: center divider line */
     .center-line{
       position:absolute;
       left:50%;
       top: 0;
       bottom: 0;
       width:1px;
-      background: var(--line-strong);
+      background: var(--border-strong);
       transform: translateX(-0.5px);
       pointer-events:none;
       z-index:1;
     }
 
-    /* horizontal under-title line */
-    .top-line{
-      position:absolute;
-      left:0; right:0;
-      top: 38px;
-      height:1px;
-      background: var(--line);
-      pointer-events:none;
-      z-index:1;
-    }
-
-    /* top arms like reference */
-    .arm-left, .arm-right{
-      position:absolute;
-      top: 70px;
-      height:1px;
-      background: var(--line-strong);
-      pointer-events:none;
-      z-index:1;
-    }
-    .arm-left{ left: 0; right: 51%; }
-    .arm-right{ left: 51%; right: 0; }
-
-    /* micro row (under title area, spanning both) */
+    /* micro row under title */
     .micro-row{
-      position:absolute;
-      left:0; right:0;
-      top: 46px;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
       align-items:start;
       padding: 0 6px;
+      margin-top: 2px;
+      margin-bottom: 10px;
       z-index:5;
+      position:relative;
     }
-    .micro-left, .micro-right{
-      /* style per TZ */
+    .micro-left,.micro-right{
       color:var(--micro);
       font-size: 12px;
       font-style: italic;
@@ -148,53 +123,57 @@
     .micro-left{ text-align:left; padding-right:10px; }
     .micro-right{ text-align:left; padding-left:10px; }
 
-    /* columns split exactly half */
+    /* columns */
     .cols{
       position:relative;
       z-index:10;
-      height:100%;
+      height: calc(100% - 44px); /* micro-row space */
       display:grid;
       grid-template-columns: 50% 50%;
-      gap:0;
-      padding-top: 86px; /* below micro row + top arms */
+      gap: 0;
+      min-height:0;
     }
     .col{
       padding: 0 18px;
       height:100%;
       display:flex;
       flex-direction:column;
-      gap: 10px;
+      gap: 12px;
       min-height:0;
     }
 
-    /* cards */
+    /* Cards (clean SpaceX-like, no extra lines) */
     .card{
-      border:1px solid var(--border);
-      background: var(--card);
-      padding: 10px 12px;
+      border:1px solid rgba(74,144,164,0.22);
+      background: rgba(10,20,30,0.38);
+      padding: 12px 12px;
+    }
+    .card.strong{
+      border-color: rgba(74,200,220,0.38);
+      background: rgba(10,20,30,0.44);
     }
 
-    /* LEFT: 4 headline rows with micro */
-    .lineblock{
+    /* Salt reduction block */
+    .metric{
       display:grid;
       grid-template-columns: 1fr auto;
-      gap: 6px 12px;
+      gap: 6px 14px;
       align-items:start;
     }
-    .lineblock h3{
+    .metric h3{
       margin:0;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing:.02em;
     }
-    .lineblock .value{
-      font-size: 18px;
+    .metric .value{
+      font-size: 22px;
       font-weight: 700;
       letter-spacing:.06em;
       white-space:nowrap;
       text-align:right;
     }
-    .lineblock .micro{
+    .metric .desc{
       grid-column: 1 / -1;
       margin-top: 4px;
       color: var(--micro);
@@ -208,11 +187,11 @@
       opacity: .95;
     }
 
-    /* LEFT: chloride/sodium with guideline + status */
-    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    /* 2-up cards */
+    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .stat-title{
       margin:0 0 8px;
-      font-size: 13px;
+      font-size:14px;
       font-weight: 800;
       letter-spacing:.02em;
     }
@@ -221,37 +200,84 @@
       grid-template-columns: auto 1fr;
       gap: 6px 10px;
       align-items:baseline;
-      font-size: 12.5px;
+      font-size:13px;
       color: var(--muted);
     }
-    .kv b{
-      font-weight: 600;
-      color: var(--muted);
-      white-space:nowrap;
-    }
+    .kv b{ font-weight:600; white-space:nowrap; color: var(--muted); }
     .kv .val{ color: var(--text); }
     .kv .after{ color: rgba(74,200,220,0.95); }
     .ok{
-      margin-top: 8px;
+      margin-top: 10px;
       color: var(--green);
-      font-size: 12.5px;
+      font-size: 13px;
       letter-spacing:.02em;
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
-    .under-micro{
-      margin-top: 8px;
-      color: var(--micro);
-      font-size: 11.5px; /* 2-3pt smaller */
-      line-height: 1.25;
-      white-space: nowrap; /* IMPORTANT: one line */
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .check{
+      width:12px;height:12px;
+      border:1px solid rgba(74,200,220,0.22);
+      display:inline-grid;
+      place-items:center;
+      color: var(--green);
+      font-weight:800;
+      font-size: 11px;
+      line-height:1;
     }
 
-    /* RIGHT: badges above table (per TZ) */
+    /* Two icon lines (left bottom) */
+    .lines{
+      display:grid;
+      gap: 10px;
+    }
+    .line-item{
+      display:grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      align-items:start;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .chip{
+      width:18px; height:18px;
+      border:1px solid rgba(74,144,164,0.22);
+      display:grid; place-items:center;
+      color: rgba(74,200,220,0.75);
+      font-size: 12px;
+    }
+
+    .disclaimer{
+      margin-top:auto;
+      color: var(--micro);
+      font-size:12px;
+      font-style:italic;
+      line-height:1.35;
+      padding: 0 2px;
+    }
+
+    /* RIGHT */
+    .right-head h3{
+      margin:0;
+      font-size:18px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .right-head p{
+      margin:6px 0 0;
+      color: var(--micro);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    /* badges: EXACTLY in the right block header area, above table */
     .badges{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
+      margin-top: 6px;
+      margin-bottom: 2px;
     }
     .badge{
       position:relative;
@@ -259,17 +285,16 @@
       align-items:center;
       gap:8px;
       padding:7px 10px 7px 9px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,0.0);
-      color:var(--muted);
+      border:1px solid rgba(74,144,164,0.22);
+      background: transparent;
+      color: var(--muted);
       font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
-      user-select:none;
       white-space:nowrap;
       cursor: default;
     }
-    .badge:hover{ border-color: rgba(74,200,220,0.7); color: var(--text); }
+    .badge:hover{ border-color: rgba(74,200,220,0.60); color: var(--text); }
     .badge .ico{ width:14px; height:14px; display:inline-grid; place-items:center; opacity:.9; }
     .badge[data-tip]::after{
       content: attr(data-tip);
@@ -280,7 +305,7 @@
       max-width:340px;
       white-space:normal;
       padding:8px 10px;
-      border:1px solid var(--border);
+      border:1px solid rgba(74,144,164,0.22);
       background: rgba(0,0,0,0.92);
       color: var(--muted);
       font-size:12px;
@@ -294,25 +319,10 @@
     }
     .badge:hover::after{ opacity:1; transform: translateY(0); }
 
-    /* RIGHT: header of block */
-    .right-head h3{
-      margin:0;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing:.02em;
-    }
-    .right-head p{
-      margin:6px 0 0;
-      color: var(--micro);
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    /* RIGHT: table card fixed to fit */
+    /* Table card */
     .table-card{
-      border:1px solid var(--border);
-      background: var(--card);
-      padding: 0;
+      border:1px solid rgba(74,144,164,0.22);
+      background: rgba(10,20,30,0.38);
       overflow:hidden;
       flex: 1;
       min-height: 0;
@@ -322,22 +332,22 @@
     table{
       width:100%;
       border-collapse:collapse;
-      font-size: 12.5px;
+      font-size: 13px;
     }
     thead th{
       text-align:left;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 10.5px;
-      letter-spacing: .08em;
+      color: rgba(154,163,173,0.85);
+      font-weight:700;
+      font-size: 11px;
+      letter-spacing: .10em;
       text-transform:uppercase;
-      padding: 9px 10px;
-      border-bottom: 1px solid rgba(74,144,164,0.22);
-      white-space: nowrap;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(74,144,164,0.18);
+      white-space:nowrap;
     }
     tbody td{
-      padding: 7px 10px; /* tight rows to fit all content */
-      border-bottom: 1px solid rgba(74,144,164,0.14);
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(74,144,164,0.12);
       color: var(--text);
       vertical-align:middle;
     }
@@ -346,11 +356,11 @@
     .status{
       display:inline-flex;
       align-items:center;
-      gap:8px;
+      gap:10px;
       color: var(--muted);
       white-space:nowrap;
       letter-spacing:.03em;
-      font-size: 12px;
+      font-size: 12.5px;
     }
     .dot{
       width:9px; height:9px;
@@ -360,32 +370,64 @@
     }
     .dot.red{ background: var(--red); }
     .dot.green{ background: var(--green); }
+    .dot.blue{ background: var(--blue); }
 
-    /* RIGHT: label + legend/nda under table */
-    .right-foot{
-      margin-top: 8px;
+    /* More toggle: like reference */
+    .more{
+      border:0;
+      border-top: 1px solid rgba(74,144,164,0.18);
+      background: transparent;
+      color: rgba(154,163,173,0.9);
+      padding: 12px 12px;
+      font: 600 12px/1 Inter, system-ui, sans-serif;
+      letter-spacing: .06em;
+      cursor:pointer;
+      text-align:left;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .more:hover{ color: var(--text); }
+    .more .arrow{
+      display:inline-block;
+      transform: translateX(0);
+      transition: transform .18s ease;
+      opacity:.9;
+    }
+    .more:hover .arrow{ transform: translateX(4px); }
+
+    /* Legend + NDA note like ref */
+    .legend{
+      margin-top: 10px;
       color: var(--micro);
-      font-size: 12px;
-      line-height: 1.35;
+      font-size:12px;
+      line-height:1.35;
       display:grid;
-      gap: 6px;
+      gap:8px;
     }
-    .right-foot .label{
-      color: var(--muted);
-      letter-spacing:.04em;
+    .legend-row{
+      display:grid;
+      grid-template-columns: 12px 1fr;
+      gap: 10px;
+      align-items:center;
     }
-    .right-foot .legend{
+    .nda{
+      border:1px solid rgba(74,144,164,0.22);
+      padding: 10px 12px;
       color: var(--micro);
+      font-size:12px;
+      line-height:1.35;
+      margin-top: 8px;
     }
 
-    /* bottom logo with diverging lines */
+    /* Bottom logo + ONLY bottom lines */
     .logo-wrap{
       position:absolute;
       left:50%;
       bottom: 0;
       transform: translateX(-50%);
-      width: 180px;
-      height: 150px;
+      width: 200px;
+      height: 152px;
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -395,7 +437,7 @@
     .logo-lines{
       position:absolute;
       left: 50%;
-      top: 54px; /* center of circle */
+      top: 56px;
       transform: translateX(-50%);
       width: 100vw;
       height: 1px;
@@ -408,78 +450,36 @@
       position:absolute;
       top:0;
       height:1px;
-      background: var(--line-strong);
-      width: calc(50vw - 92px);
+      background: rgba(74,200,220,0.55);
+      width: calc(50vw - 96px);
     }
-    .logo-lines::before{ right: 92px; }
-    .logo-lines::after{ left: 92px; }
+    .logo-lines::before{ right: 96px; }
+    .logo-lines::after{ left: 96px; }
 
     .logo-circle{
-      width: 128px;
-      height: 128px;
+      width: 132px;
+      height: 132px;
       border-radius:50%;
       border:1px solid rgba(74,200,220,0.55);
-      background: rgba(10,20,30,0.25);
+      background: rgba(10,20,30,0.22);
       display:grid;
       place-items:center;
       box-shadow: 0 0 30px var(--glow);
       animation: pulse 2.4s ease-in-out infinite;
     }
     @keyframes pulse{
-      0%,100%{ box-shadow: 0 0 22px rgba(74,200,220,0.26); }
-      50%{ box-shadow: 0 0 34px rgba(74,200,220,0.52); }
+      0%,100%{ box-shadow: 0 0 22px rgba(74,200,220,0.22); }
+      50%{ box-shadow: 0 0 34px rgba(74,200,220,0.44); }
     }
     .brand{
       margin-top: 10px;
       font-size: 13px;
       letter-spacing: .28em;
-      color: var(--muted);
+      color: rgba(154,163,173,0.95);
       text-transform:uppercase;
     }
 
-    /* blueprint decorative skeleton (subtle, like reference) */
-    .decor{
-      position:absolute;
-      left:0; top:0; right:0; bottom:150px;
-      pointer-events:none;
-      z-index:2;
-    }
-    .decor .l{ position:absolute; height:1px; background: var(--line-strong); opacity: .92; }
-    .decor .v{ position:absolute; width:1px; background: var(--line-strong); opacity: .92; }
-
-    /* tuned to resemble your skeleton image */
-    .decor .ls1{ left: 26px; width: 38%; top: 118px; }
-    .decor .ls2{ left: 26px; width: 38%; top: 158px; }
-    .decor .ls3{ left: 26px; width: 38%; top: 198px; }
-
-    .decor .lm1{ left: 26px; width: 16%; top: 262px; }
-    .decor .lm2{ left: 26px; width: 16%; top: 302px; }
-    .decor .lm3{ left: 26px; width: 16%; top: 342px; }
-    .decor .lm4{ left: 26px; width: 16%; top: 382px; }
-
-    .decor .rm1{ left: 22%; width: 16%; top: 262px; }
-    .decor .rm2{ left: 22%; width: 16%; top: 302px; }
-    .decor .rm3{ left: 22%; width: 16%; top: 342px; }
-    .decor .rm4{ left: 22%; width: 16%; top: 382px; }
-
-    .decor .lv1{ left: 20%; top: 240px; height: 170px; }
-
-    .decor .box{
-      position:absolute;
-      right: 26px;
-      top: 132px;
-      width: 40%;
-      height: 310px;
-      border:1px solid var(--line-strong);
-      opacity:.92;
-    }
-
-    .decor .b1{ left: 26px; width: 44%; top: 470px; opacity:.50; background: var(--line); }
-    .decor .b2{ right: 26px; width: 44%; top: 470px; opacity:.50; background: var(--line); }
-    .decor .b3{ left: 26px; width: 30%; top: 520px; opacity:.50; background: var(--line); }
-    .decor .b4{ right: 26px; width: 30%; top: 520px; opacity:.50; background: var(--line); }
-
-    /* reveal */
+    /* Reveal */
     .fade{
       opacity:0;
       transform: translateY(8px);
@@ -487,19 +487,16 @@
     }
     .fade.show{ opacity:1; transform: translateY(0); }
 
-    /* responsive: allow scroll, collapse columns */
+    /* Mobile/tablet: allow scroll; stack columns */
     @media (max-width: 980px){
       body{ overflow:auto; }
-      .section{ height:auto; min-height:100vh; overflow:visible; }
-      .bp{ padding-bottom: 170px; }
-      .cols{ grid-template-columns: 1fr; }
+      .section{ height:auto; min-height:100vh; }
+      .bp{ padding-bottom: 172px; }
+      .cols{ grid-template-columns: 1fr; height:auto; }
       .center-line{ display:none; }
-      .micro-row{ grid-template-columns: 1fr; position:static; margin: 8px 0 0; }
-      .top-line, .arm-left, .arm-right{ display:none; }
+      .micro-row{ grid-template-columns: 1fr; }
       .grid2{ grid-template-columns: 1fr; }
-      .decor{ display:none; }
-      .table-card{ min-height: 420px; }
-      .under-micro{ white-space: normal; }
+      .table-card{ min-height: 340px; }
     }
   </style>
 </head>
@@ -512,47 +509,40 @@
     </div>
 
     <header class="header">
-      <h1 class="title">QUALITY &amp; STANDARDS</h1>
+      <h1 class="title" data-i="title">QUALITY &amp; STANDARDS</h1>
       <div class="title-underline"></div>
     </header>
 
-    <div class="bp" id="bp">
+    <div class="bp">
       <div class="center-line"></div>
-      <div class="top-line"></div>
-      <div class="arm-left"></div>
-      <div class="arm-right"></div>
 
-      <!-- skeleton lines like reference -->
-      <div class="decor" aria-hidden="true">
-        <div class="l ls1"></div><div class="l ls2"></div><div class="l ls3"></div>
-        <div class="l lm1"></div><div class="l lm2"></div><div class="l lm3"></div><div class="l lm4"></div>
-        <div class="l rm1"></div><div class="l rm2"></div><div class="l rm3"></div><div class="l rm4"></div>
-        <div class="v lv1"></div>
-        <div class="box"></div>
-        <div class="l b1"></div><div class="l b2"></div>
-        <div class="l b3"></div><div class="l b4"></div>
-      </div>
-
-      <!-- micro under title (RU/EN switch affects LEFT text; RIGHT kept short like ref, you can edit if needed) -->
       <div class="micro-row fade" id="microRow">
-        <div class="micro-left" data-i="topMicro">
+        <div class="micro-left" data-i="micro">
           Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; the table shows status trends without values.
         </div>
-        <div class="micro-right" data-i="topMicroRight">
-          Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; status trends only.
+        <div class="micro-right" data-i="micro2">
+          Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; the table shows status trends-only.
         </div>
       </div>
 
       <div class="cols">
-        <!-- LEFT COLUMN: full content from TZ -->
+        <!-- LEFT -->
         <div class="col">
-          <!-- 1) Salt reduction -->
-          <div class="card fade">
-            <div class="lineblock">
-              <h3 data-i="saltHeadline">Salt reduction (pilot): ~900–1500×</h3>
-              <div class="value">~900–1500×</div>
-              <div class="micro" data-i="saltMicro">
-                representative pilot samples (chain-of-custody); feed/config-dependent.
+          <!-- badges on LEFT like reference -->
+          <div class="badges fade" id="leftBadges">
+            <div class="badge" data-tip="World Health Organization (WHO)"><span class="ico">⚕︎</span>WHO</div>
+            <div class="badge" data-tip="European Union (EU)"><span class="ico">◻︎</span>EU</div>
+            <div class="badge" data-tip="U.S. Environmental Protection Agency (US EPA)"><span class="ico">⟡</span>US EPA</div>
+            <div class="badge" data-tip="Independent lab verification. Reports & protocols in the Data Room after e-NDA."><span class="ico">✦</span>Lab-verified</div>
+            <div class="badge" data-tip="Operating principles are not disclosed on public pages."><span class="ico">⦸</span>No process disclosure</div>
+          </div>
+
+          <div class="card strong fade">
+            <div class="metric">
+              <h3 data-i="saltTitle">Salt reduction (pilot)</h3>
+              <div class="value" data-i="saltValue">~900–1500×</div>
+              <div class="desc" data-i="saltDesc">
+                based on representative pilot samples (chain-of-custody); feed- and configuration-dependent.
               </div>
               <div class="mini-ico" aria-hidden="true" title="wave → arrow → DC">
                 <svg width="78" height="18" viewBox="0 0 78 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -565,109 +555,89 @@
             </div>
           </div>
 
-          <!-- 2) Recovery -->
+          <div class="grid2">
+            <div class="card fade">
+              <div class="stat-title" data-i="clTitle">Chloride (Cl⁻)</div>
+              <div class="kv">
+                <b data-i="raw">Raw sample:</b> <span class="val" id="clRaw">48,000 mg/L</span>
+                <b data-i="after">After AQUINTAQA:</b> <span class="val after" id="clAfter">52 mg/L</span>
+              </div>
+              <div class="ok"><span class="check">✓</span><span data-i="below">well below benchmark</span></div>
+            </div>
+
+            <div class="card fade">
+              <div class="stat-title" data-i="naTitle">Sodium (Na⁺)</div>
+              <div class="kv">
+                <b data-i="raw">Raw sample:</b> <span class="val" id="naRaw">23,200 mg/L</span>
+                <b data-i="after">After AQUINTAQA:</b> <span class="val after" id="naAfter">15.5 mg/L</span>
+              </div>
+              <div class="ok"><span class="check">✓</span><span data-i="below">well below benchmark</span></div>
+            </div>
+          </div>
+
           <div class="card fade">
-            <div class="lineblock">
-              <h3 data-i="recHeadline">Product water recovery: up to 98%</h3>
-              <div class="value">98%</div>
-              <div class="micro" data-i="recMicro">
-                feed-dependent; ultra-low concentrate / reject volume (full protocols after e-NDA).
+            <div class="lines">
+              <div class="line-item">
+                <div class="chip">💧</div>
+                <div data-i="line1">Operable at dissolved salts up to <b>200 g/L</b> (feed-dependent)</div>
+              </div>
+              <div class="line-item">
+                <div class="chip">🔬</div>
+                <div data-i="line2">Effective removal of particles <b>&lt; 1 μm</b> (colloids/suspended)</div>
               </div>
             </div>
           </div>
 
-          <!-- Chloride + Sodium with guideline + status -->
-          <div class="card fade">
-            <div class="grid2">
-              <div>
-                <div class="stat-title" data-i="clTitle">Chloride (Cl⁻)</div>
-                <div class="kv">
-                  <b data-i="rawLabel">Raw:</b> <span class="val" id="clRaw">48,000 mg/L</span>
-                  <b data-i="afterLabel">After:</b> <span class="val after" id="clAfter">52 mg/L</span>
-                  <b data-i="guideLabel">Guideline (WHO/EU/US EPA):</b> <span class="val" data-i="clGuide">≤ 350 mg/L</span>
-                </div>
-                <div class="ok" data-i="clStatus">✅ below guideline</div>
-              </div>
-
-              <div>
-                <div class="stat-title" data-i="naTitle">Sodium (Na⁺)</div>
-                <div class="kv">
-                  <b data-i="rawLabel">Raw:</b> <span class="val" id="naRaw">23,200 mg/L</span>
-                  <b data-i="afterLabel">After:</b> <span class="val after" id="naAfter">16 mg/L</span>
-                  <b data-i="guideLabel">Guideline (WHO/EU/US EPA):</b> <span class="val" data-i="naGuide">≤ 200 mg/L</span>
-                </div>
-                <div class="ok" data-i="naStatus">✅ below guideline</div>
-              </div>
-            </div>
-
-            <div class="under-micro" data-i="underMicro">
-              Raw — raw sample • After — after AQUINTAQA • Guideline — WHO/EU/US EPA benchmark
-            </div>
-          </div>
-
-          <!-- 3) Particle removal -->
-          <div class="card fade">
-            <div class="lineblock">
-              <h3 data-i="pHeadline">Particle removal &lt; 1 μm</h3>
-              <div class="value"></div>
-              <div class="micro" data-i="pMicro">
-                colloids / suspended matter; verified on pilot samples (chain-of-custody).
-              </div>
-            </div>
-          </div>
-
-          <!-- 4) Feed salinity tolerance -->
-          <div class="card fade" style="margin-top:-2px;">
-            <div class="lineblock">
-              <h3 data-i="fHeadline">Feed salinity tolerance: up to 200 g/L</h3>
-              <div class="value"></div>
-              <div class="micro" data-i="fMicro">
-                dissolved salts (TDS); feed-dependent.
-              </div>
-            </div>
+          <div class="disclaimer fade" data-i="disc">
+            Figures shown are safe to disclose. Full tables, chain-of-custody, and lab reports available after e-NDA.
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: badges + table + texts (per TZ) -->
+        <!-- RIGHT -->
         <div class="col">
           <div class="right-head fade">
             <h3 data-i="rtTitle">Quality trends before/after (no values)</h3>
-            <p data-i="rtDesc">Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).</p>
+            <p data-i="rtDesc">
+              Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).
+            </p>
           </div>
 
-          <!-- badges ABOVE TABLE (per TZ page 4) -->
-          <div class="badges fade" id="badges">
-            <div class="badge" data-tip="World Health Organization (WHO)"><span class="ico">⚕︎</span>WHO</div>
-            <div class="badge" data-tip="European Union (EU)"><span class="ico">◻︎</span>EU</div>
-            <div class="badge" data-tip="U.S. Environmental Protection Agency (US EPA)"><span class="ico">⟡</span>US EPA</div>
-            <div class="badge" data-tip="Independent lab verification. Reports & protocols in the Data Room after e-NDA."><span class="ico">✦</span>Lab-verified</div>
-          </div>
+          <!-- badges on RIGHT should be removed per your screenshot, but reference shows them left only.
+               Keeping them off by default. If you need them here too, I can add. -->
 
           <div class="table-card fade">
-            <table aria-label="Quality status table">
+            <table>
               <thead>
                 <tr>
-                  <th data-i="thParam">Parameter</th>
-                  <th data-i="thRaw">Raw (status)</th>
-                  <th data-i="thAfter">After (status)</th>
-                  <th data-i="thBench">Benchmark: WHO / EU / US EPA</th>
+                  <th data-i="th1">Parameter</th>
+                  <th data-i="th2">Raw status</th>
+                  <th data-i="th3">After status</th>
                 </tr>
               </thead>
-              <tbody id="rows"></tbody>
+              <tbody id="mainRows"></tbody>
+              <tbody id="moreRows" hidden></tbody>
             </table>
+
+            <button class="more" id="moreBtn" type="button" aria-expanded="false">
+              <span id="moreLabel" data-i="more">View more parameters... ></span>
+              <span class="arrow">&gt;</span>
+            </button>
           </div>
 
-          <!-- Under-table texts exactly per TZ (no duplicates) -->
-          <div class="right-foot fade">
-            <div class="label" data-i="labelLine">Trends: public status view (no numbers)</div>
-            <div class="legend" data-i="legendLine">
-              red = elevated baseline • green = within benchmark • blue = above benchmark. Full before/after tables, methods & reports after e-NDA (Data Room).
+          <div class="legend fade">
+            <div class="legend-row"><span class="dot red"></span><span data-i="leg1">Red ↑ : elevated baseline in raw water</span></div>
+            <div class="legend-row"><span class="dot green"></span><span data-i="leg2">Green : within WHO/EU/US EPA benchmarks</span></div>
+            <div class="legend-row"><span class="dot blue"></span><span data-i="leg3">Blue : above benchmarks (if applicable)</span></div>
+
+            <div class="nda" data-i="nda">
+              The homepage shows status-only visualization without numeric values and without disclosing operating modes.
+              Full before/after tables, sampling protocols (chain-of-custody), and lab reports available in White Paper and Data Room after e-NDA.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Bottom centered logo + diverging lines -->
+      <!-- bottom logo -->
       <div class="logo-wrap" aria-label="AQUINTAQA logo">
         <div class="logo-lines" aria-hidden="true"></div>
 
@@ -698,14 +668,25 @@
   </section>
 
   <script>
-    // --- Rows from TZ: include ALL rows (no "view more" toggle) ---
-    const tableRows = {
+    const rowsMain = {
       en: [
         "TDS (total dissolved solids)",
         "Hardness (Ca/Mg)",
-        "Nitrates/nitrites",
+        "Nitrates/Nitrites",
         "Chlorides",
-        "NTU (turbidity)",
+        "NTU (turbidity)"
+      ],
+      ru: [
+        "TDS (общая минерализация)",
+        "Жёсткость (Ca/Mg)",
+        "Нитраты/нитриты",
+        "Хлориды",
+        "NTU (мутность)"
+      ]
+    };
+
+    const rowsMore = {
+      en: [
         "Sulfates (SO₄²⁻)",
         "Alkalinity",
         "Calcium/magnesium",
@@ -717,11 +698,6 @@
         "Corrosion potential (indicator)"
       ],
       ru: [
-        "TDS (общая минерализация)",
-        "Жёсткость (Ca/Mg)",
-        "Нитраты/нитриты",
-        "Хлориды",
-        "NTU (мутность)",
         "Сульфаты (SO₄²⁻)",
         "Щёлочность",
         "Кальций/магний",
@@ -729,130 +705,128 @@
         "Аммоний (NH₄⁺)",
         "Цветность",
         "Запах/вкус (органолептика)",
-        "Склонность к накипи (indicator)",
-        "Коррозионный потенциал (indicator)"
+        "Склонность к накипи",
+        "Коррозионный потенциал"
       ]
     };
 
-    const I18N = {
+    const i18n = {
       en: {
-        topMicro: "Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; the table shows status trends without values.",
-        topMicroRight: "Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; status trends only.",
+        title:"QUALITY & STANDARDS",
+        micro:"Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; the table shows status trends without values.",
+        micro2:"Public disclosure level: numbers shown only for safe-to-disclose “hook metrics”; the table shows status trends-only.",
 
-        saltHeadline: "Salt reduction (pilot): ~900–1500×",
-        saltMicro: "representative pilot samples (chain-of-custody); feed/config-dependent.",
+        saltTitle:"Salt reduction (pilot)",
+        saltValue:"~900–1500×",
+        saltDesc:"based on representative pilot samples (chain-of-custody); feed- and configuration-dependent.",
 
-        recHeadline: "Product water recovery: up to 98%",
-        recMicro: "feed-dependent; ultra-low concentrate / reject volume (full protocols after e-NDA).",
+        clTitle:"Chloride (Cl⁻)",
+        naTitle:"Sodium (Na⁺)",
+        raw:"Raw sample:",
+        after:"After AQUINTAQA:",
+        below:"well below benchmark",
 
-        clTitle: "Chloride (Cl⁻)",
-        naTitle: "Sodium (Na⁺)",
-        rawLabel: "Raw:",
-        afterLabel: "After:",
-        guideLabel: "Guideline (WHO/EU/US EPA):",
-        clGuide: "≤ 350 mg/L",
-        naGuide: "≤ 200 mg/L",
-        clStatus: "✅ below guideline",
-        naStatus: "✅ below guideline",
+        line1:"Operable at dissolved salts up to <b>200 g/L</b> (feed-dependent)",
+        line2:"Effective removal of particles <b>&lt; 1 μm</b> (colloids/suspended)",
 
-        underMicro: "Raw — raw sample • After — after AQUINTAQA • Guideline — WHO/EU/US EPA benchmark",
+        disc:"Figures shown are safe to disclose. Full tables, chain-of-custody, and lab reports available after e-NDA.",
 
-        pHeadline: "Particle removal < 1 μm",
-        pMicro: "colloids / suspended matter; verified on pilot samples (chain-of-custody).",
+        rtTitle:"Quality trends before/after (no values)",
+        rtDesc:"Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).",
 
-        fHeadline: "Feed salinity tolerance: up to 200 g/L",
-        fMicro: "dissolved salts (TDS); feed-dependent.",
+        th1:"Parameter",
+        th2:"Raw status",
+        th3:"After status",
 
-        rtTitle: "Quality trends before/after (no values)",
-        rtDesc: "Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).",
+        more:"View more parameters... >",
+        less:"Show fewer parameters... >",
 
-        thParam: "Parameter",
-        thRaw: "Raw (status)",
-        thAfter: "After (status)",
-        thBench: "Benchmark: WHO / EU / US EPA",
+        leg1:"Red ↑ : elevated baseline in raw water",
+        leg2:"Green : within WHO/EU/US EPA benchmarks",
+        leg3:"Blue : above benchmarks (if applicable)",
 
-        labelLine: "Trends: public status view (no numbers)",
-        legendLine: "red = elevated baseline • green = within benchmark • blue = above benchmark. Full before/after tables, methods & reports after e-NDA (Data Room)."
+        nda:"The homepage shows status-only visualization without numeric values and without disclosing operating modes. Full before/after tables, sampling protocols (chain-of-custody), and lab reports available in White Paper and Data Room after e-NDA."
       },
-
       ru: {
-        topMicro: "Публичный уровень раскрытия: цифры — только безопасные для IP «hook-метрики»; таблица — статус-тренды без значений.",
-        topMicroRight: "Публичное раскрытие: только статус (без чисел).",
+        title:"QUALITY & STANDARDS",
+        micro:"Публичный уровень раскрытия: цифры — только безопасные для IP «hook-метрики»; таблица — статус-тренды без значений.",
+        micro2:"Публичный уровень раскрытия: только статус (без чисел).",
 
-        saltHeadline: "Снижение солевой нагрузки (pilot): ~900–1500×",
-        saltMicro: "репрезентативные пилотные пробы (chain-of-custody); зависит от фида и конфигурации.",
+        saltTitle:"Снижение солевой нагрузки (pilot)",
+        saltValue:"~900–1500×",
+        saltDesc:"на основе репрезентативных пилотных проб (chain-of-custody); зависит от состава фида и конфигурации.",
 
-        recHeadline: "Выход очищенной воды (Recovery): до 98%",
-        recMicro: "зависит от фида; минимальный объём концентрата/отходящего потока (полные протоколы — после e-NDA).",
+        clTitle:"Хлорид-ион (Cl⁻)",
+        naTitle:"Натрий (Na⁺)",
+        raw:"Исходная проба:",
+        after:"После AQUINTAQA:",
+        below:"значительно ниже ориентира",
 
-        clTitle: "Хлорид-ион (Cl⁻)",
-        naTitle: "Натрий (Na⁺)",
-        rawLabel: "Raw:",
-        afterLabel: "After:",
-        guideLabel: "Guideline (WHO/EU/US EPA):",
-        clGuide: "≤ 350 mg/L",
-        naGuide: "≤ 200 mg/L",
-        clStatus: "✅ ниже ориентира",
-        naStatus: "✅ ниже ориентира",
+        line1:"Работоспособность при солесодержании до <b>200 g/L</b> (зависит от фида)",
+        line2:"Эффективное удаление частиц <b>&lt; 1 μm</b> (коллоиды/взвеси)",
 
-        underMicro: "Raw — исходная проба • After — после AQUINTAQA • Guideline — ориентир WHO/EU/US EPA",
+        disc:"Приведённые цифры безопасны для раскрытия. Полные таблицы, chain-of-custody, лабораторные отчёты доступны после e-NDA.",
 
-        pHeadline: "Удаление частиц < 1 μm",
-        pMicro: "коллоиды / взвеси; подтверждено пилотными пробами (chain-of-custody).",
+        rtTitle:"Тренды качества «до/после» (без значений)",
+        rtDesc:"Статус-сравнение относительно ориентиров WHO/EU/US EPA. Полные таблицы с цифрами — в Data Room (e-NDA).",
 
-        fHeadline: "Допустимая минерализация фида: до 200 g/L",
-        fMicro: "по солям (TDS); зависит от состава фида (feed-dependent).",
+        th1:"Параметр",
+        th2:"Статус (до)",
+        th3:"Статус (после)",
 
-        rtTitle: "Тренды качества «до/после» (без значений)",
-        rtDesc: "Статус-сравнение относительно ориентиров WHO/EU/US EPA. Полные таблицы с цифрами — в Data Room (e-NDA).",
+        more:"Показать ещё ↓",
+        less:"Скрыть дополнительные ↑",
 
-        thParam: "Parameter",
-        thRaw: "Raw (status)",
-        thAfter: "After (status)",
-        thBench: "Benchmark: WHO / EU / US EPA",
+        leg1:"красный — повышенный baseline в исходной воде",
+        leg2:"зелёный — в пределах ориентиров WHO/EU/US EPA",
+        leg3:"синий — выше ориентиров (при необходимости)",
 
-        labelLine: "Trends: public status view (no numbers)",
-        legendLine: "red = повышенный baseline • green = в пределах ориентира • blue = выше ориентира. Полные “до/после” таблицы, методики и отчёты — после e-NDA (Data Room)."
+        nda:"На главной странице публикуется только статус-визуализация — без числовых значений и без раскрытия операционных режимов. Полные таблицы «до/после», протоколы отбора проб (chain-of-custody), и лабораторные отчёты доступны в White Paper и Data Room после e-NDA."
       }
     };
 
-    // number formatting per TZ
-    const NUM = {
-      en: { clRaw: "48,000 mg/L", naRaw: "23,200 mg/L", clAfter: "52 mg/L", naAfter: "16 mg/L" },
-      ru: { clRaw: "48\u202f000 mg/L", naRaw: "23\u202f200 mg/L", clAfter: "52 mg/L", naAfter: "16 mg/L" }
+    const nums = {
+      en: { clRaw:"48,000 mg/L", clAfter:"52 mg/L", naRaw:"23,200 mg/L", naAfter:"15.5 mg/L" },
+      ru: { clRaw:"48\u202f000 mg/L", clAfter:"52 mg/L", naRaw:"23\u202f200 mg/L", naAfter:"15.5 mg/L" }
     };
 
     let lang = "en";
+    let expanded = false;
 
-    function buildTable(){
-      const tbody = document.getElementById("rows");
-      tbody.innerHTML = tableRows[lang].map(label => `
+    function statusRow(label){
+      return `
         <tr>
           <td>${label}</td>
-          <td><span class="status"><span class="dot red"></span>RED&nbsp;HIGH</span></td>
-          <td><span class="status"><span class="dot green"></span>GREEN&nbsp;OK</span></td>
-          <td></td>
+          <td><span class="status"><span class="dot red"></span>HIGH</span></td>
+          <td><span class="status"><span class="dot green"></span>OK</span></td>
         </tr>
-      `).join("");
+      `;
     }
 
-    function applyLang(){
-      // swap texts
+    function buildTable(){
+      const main = document.getElementById("mainRows");
+      const more = document.getElementById("moreRows");
+      main.innerHTML = rowsMain[lang].map(statusRow).join("");
+      more.innerHTML = rowsMore[lang].map(statusRow).join("");
+      more.hidden = !expanded;
+    }
+
+    function applyI18n(){
       document.querySelectorAll("[data-i]").forEach(el=>{
         const key = el.getAttribute("data-i");
-        const val = I18N[lang][key];
-        if(val != null) el.textContent = val;
+        const val = i18n[lang][key];
+        if(val == null) return;
+        if(key === "line1" || key === "line2") el.innerHTML = val;
+        else el.textContent = val;
       });
 
-      // numbers
-      document.getElementById("clRaw").textContent = NUM[lang].clRaw;
-      document.getElementById("clAfter").textContent = NUM[lang].clAfter;
-      document.getElementById("naRaw").textContent = NUM[lang].naRaw;
-      document.getElementById("naAfter").textContent = NUM[lang].naAfter;
+      document.getElementById("clRaw").textContent = nums[lang].clRaw;
+      document.getElementById("clAfter").textContent = nums[lang].clAfter;
+      document.getElementById("naRaw").textContent = nums[lang].naRaw;
+      document.getElementById("naAfter").textContent = nums[lang].naAfter;
 
-      // tooltips on badges (exact per TZ)
-      const badges = document.querySelectorAll("#badges .badge");
-      if(badges.length >= 4){
+      const badges = document.querySelectorAll("#leftBadges .badge");
+      if(badges.length >= 5){
         badges[0].setAttribute("data-tip", lang==="ru" ? "Всемирная организация здравоохранения (ВОЗ)" : "World Health Organization (WHO)");
         badges[1].setAttribute("data-tip", lang==="ru" ? "Европейский союз (ЕС)" : "European Union (EU)");
         badges[2].setAttribute("data-tip", lang==="ru" ? "Агентство по охране окружающей среды США (EPA)" : "U.S. Environmental Protection Agency (US EPA)");
@@ -860,36 +834,43 @@
           ? "Независимое лабораторное подтверждение. Отчёты и протоколы — в Data Room после e-NDA."
           : "Independent lab verification. Reports & protocols in the Data Room after e-NDA."
         );
+        badges[4].setAttribute("data-tip", lang==="ru"
+          ? "Операционные принципы не раскрываются на публичных страницах."
+          : "Operating principles are not disclosed on public pages."
+        );
       }
 
-      buildTable();
+      document.getElementById("moreLabel").textContent = expanded ? i18n[lang].less : i18n[lang].more;
     }
 
-    // buttons
-    const btnEn = document.getElementById("btnEn");
-    const btnRu = document.getElementById("btnRu");
-    btnEn.addEventListener("click", ()=>{
-      lang = "en";
-      btnEn.setAttribute("aria-pressed","true");
-      btnRu.setAttribute("aria-pressed","false");
-      applyLang();
-    });
-    btnRu.addEventListener("click", ()=>{
-      lang = "ru";
-      btnRu.setAttribute("aria-pressed","true");
-      btnEn.setAttribute("aria-pressed","false");
-      applyLang();
+    const moreBtn = document.getElementById("moreBtn");
+    moreBtn.addEventListener("click", ()=>{
+      expanded = !expanded;
+      document.getElementById("moreRows").hidden = !expanded;
+      moreBtn.setAttribute("aria-expanded", String(expanded));
+      document.getElementById("moreLabel").textContent = expanded ? i18n[lang].less : i18n[lang].more;
     });
 
-    // reveal (no scroll)
+    const btnEn = document.getElementById("btnEn");
+    const btnRu = document.getElementById("btnRu");
+    function setLang(next){
+      lang = next;
+      btnEn.setAttribute("aria-pressed", String(lang==="en"));
+      btnRu.setAttribute("aria-pressed", String(lang==="ru"));
+      buildTable();
+      applyI18n();
+    }
+    btnEn.addEventListener("click", ()=>setLang("en"));
+    btnRu.addEventListener("click", ()=>setLang("ru"));
+
     function reveal(){
       document.querySelectorAll(".fade").forEach((el,i)=>{
-        setTimeout(()=>el.classList.add("show"), 80 + i*60);
+        setTimeout(()=>el.classList.add("show"), 80 + i*55);
       });
     }
 
-    // init
-    applyLang();
+    buildTable();
+    applyI18n();
     reveal();
   </script>
 </body>
