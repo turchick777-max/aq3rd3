@@ -35,7 +35,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Layout Structures --- */
         .viewport {
             min-height: 100vh;
             display: flex;
@@ -79,6 +78,7 @@
             right: 0;
             display: flex;
             gap: 10px;
+            z-index: 10;
         }
 
         .lang-btn {
@@ -110,7 +110,7 @@
             font-size: 11px;
             color: var(--text-micro);
             font-style: italic;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
@@ -123,19 +123,19 @@
 
         .col-left {
             flex: 0 0 55%;
-            padding-right: 40px;
+            padding-right: 60px;
         }
 
         .col-right {
             flex: 0 0 45%;
-            padding-left: 40px;
+            padding-left: 60px;
         }
 
-        /* --- Badges --- */
+        /* --- Badges (Now in Right Column) --- */
         .badge-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
 
@@ -149,11 +149,12 @@
             gap: 6px;
             cursor: help;
             position: relative;
-            transition: border 0.3s;
+            transition: 0.3s;
         }
 
         .badge:hover {
             border-color: var(--text-primary);
+            color: white;
         }
 
         .badge .tooltip {
@@ -161,16 +162,17 @@
             position: absolute;
             bottom: 130%;
             left: 0;
-            background: #111;
-            border: 1px solid var(--border-accent);
-            padding: 8px;
-            width: 200px;
-            color: #ddd;
-            z-index: 10;
+            background: #0a0a0a;
+            border: 1px solid var(--accent-blue);
+            padding: 10px;
+            width: 220px;
+            color: #ccc;
+            z-index: 100;
             font-size: 11px;
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .badge:hover .tooltip {
@@ -178,19 +180,19 @@
             opacity: 1;
         }
 
-        /* --- Metric Blocks --- */
+        /* --- Left Column Elements --- */
         .metric-card {
             border: 1px solid var(--border-accent);
             background: var(--bg-card);
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 24px;
+            margin-bottom: 30px;
             position: relative;
         }
 
         .salt-reduction {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
 
         .salt-reduction h2 {
@@ -200,45 +202,47 @@
         }
 
         .salt-value {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 300;
             letter-spacing: -1px;
+            color: white;
         }
 
         .metric-micro {
             font-size: 11px;
             color: var(--text-micro);
-            line-height: 1.4;
-            max-width: 70%;
+            line-height: 1.5;
+            max-width: 80%;
         }
 
         .dc-icon {
             font-size: 12px;
             color: var(--accent-blue);
-            margin-top: 10px;
+            margin-top: 15px;
+            letter-spacing: 2px;
         }
 
-        /* --- Chloride/Sodium Split --- */
         .split-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
 
         .sub-metric h3 {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             border-bottom: 1px solid var(--border-line);
-            padding-bottom: 5px;
+            padding-bottom: 6px;
+            font-weight: 400;
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
             font-size: 13px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .val-after {
@@ -249,30 +253,32 @@
         .status-check {
             color: var(--status-green);
             font-size: 12px;
-            margin-top: 10px;
+            margin-top: 12px;
+            font-weight: 500;
         }
 
-        /* --- Simple Rows --- */
         .row-metric {
             display: flex;
             align-items: center;
             gap: 15px;
             font-size: 13px;
-            margin-bottom: 15px;
-            color: #ddd;
+            margin-bottom: 18px;
+            color: #eee;
         }
 
-        /* --- Table Styling (Right Column) --- */
+        /* --- Right Column Table --- */
         .table-title {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 20px;
+            margin-bottom: 6px;
             font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .table-sub {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.4;
         }
 
         table {
@@ -286,24 +292,25 @@
             text-align: left;
             color: var(--text-micro);
             font-weight: 400;
-            padding: 10px 5px;
+            padding: 12px 8px;
             border-bottom: 1px solid var(--border-line);
             text-transform: uppercase;
             font-size: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         td {
-            padding: 12px 5px;
+            padding: 14px 8px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .status-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             font-size: 11px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .dot {
@@ -312,9 +319,9 @@
             border-radius: 50%;
         }
 
-        .dot.red { background: var(--status-red); box-shadow: 0 0 8px var(--status-red); }
-        .dot.green { background: var(--status-green); box-shadow: 0 0 8px var(--status-green); }
-        .dot.blue { background: var(--status-blue); box-shadow: 0 0 8px var(--status-blue); }
+        .dot.red { background: var(--status-red); box-shadow: 0 0 10px rgba(255, 68, 68, 0.4); }
+        .dot.green { background: var(--status-green); box-shadow: 0 0 10px rgba(68, 204, 136, 0.4); }
+        .dot.blue { background: var(--status-blue); box-shadow: 0 0 10px rgba(68, 136, 255, 0.4); }
 
         .view-more {
             background: none;
@@ -322,39 +329,39 @@
             color: var(--accent-blue);
             font-size: 12px;
             cursor: pointer;
-            padding: 5px 0;
+            padding: 8px 0;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             transition: 0.3s;
         }
 
-        .view-more:hover { gap: 10px; color: white; }
+        .view-more:hover { gap: 12px; color: white; }
 
         .hidden-rows { display: none; }
 
-        /* --- Legend & NDA --- */
         .legend {
-            margin-top: 20px;
+            margin-top: 25px;
             font-size: 11px;
             color: var(--text-micro);
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
         }
 
         .nda-note {
-            margin-top: 30px;
+            margin-top: 35px;
             border: 1px solid var(--border-line);
-            padding: 15px;
+            padding: 18px;
             font-size: 11px;
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.02);
         }
 
-        /* --- Footer & Logo --- */
+        /* --- Footer --- */
         footer {
-            margin-top: 40px;
+            margin-top: 50px;
             text-align: center;
             position: relative;
             padding-bottom: 40px;
@@ -365,19 +372,17 @@
             height: 1px;
             background: var(--border-line);
             top: 60px;
-            width: calc(50% - 80px);
+            width: calc(50% - 100px);
         }
         .footer-line-left { left: 0; }
         .footer-line-right { right: 0; }
 
         .logo-container {
-            width: 120px;
-            height: 120px;
+            width: 150px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             position: relative;
             z-index: 5;
         }
@@ -393,28 +398,29 @@
             justify-content: center;
             box-shadow: 0 0 30px var(--logo-glow);
             animation: pulse 4s infinite ease-in-out;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--logo-glow); border-color: var(--border-accent); }
-            50% { box-shadow: 0 0 40px rgba(74, 200, 220, 0.6); border-color: rgba(74, 200, 220, 0.8); }
+            0%, 100% { box-shadow: 0 0 15px var(--logo-glow); border-color: var(--border-accent); }
+            50% { box-shadow: 0 0 35px rgba(74, 200, 220, 0.5); border-color: rgba(74, 200, 220, 0.7); }
         }
 
-        .logo-svg { width: 50px; height: 50px; }
+        .logo-svg { width: 45px; height: 45px; }
 
         .brand-name {
             font-size: 14px;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             font-weight: 300;
             color: white;
+            text-transform: uppercase;
         }
 
         /* --- Animations --- */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
+            transform: translateY(15px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reveal.active {
@@ -423,12 +429,13 @@
         }
 
         /* --- Responsive --- */
-        @media (max-width: 1024px) {
+        @media (max-width: 1100px) {
             .main-content { flex-direction: column; }
-            .col-left, .col-right { flex: 1 0 100%; padding: 0; }
+            .col-left, .col-right { flex: 1 0 100%; padding: 0; margin-bottom: 50px; }
             .grid-line-v { display: none; }
             .viewport { padding: 20px; }
             .split-metrics { grid-template-columns: 1fr; }
+            .grid-line-h { display: none; }
         }
     </style>
 </head>
@@ -450,14 +457,6 @@
     <main class="main-content">
         <!-- LEFT COLUMN -->
         <section class="col-left reveal">
-            <div class="badge-row">
-                <div class="badge">WHO <div class="tooltip" id="tt-who">World Health Organization (WHO)</div></div>
-                <div class="badge">EU <div class="tooltip" id="tt-eu">European Union (EU)</div></div>
-                <div class="badge">US EPA <div class="tooltip" id="tt-us">U.S. Environmental Protection Agency (US EPA)</div></div>
-                <div class="badge">Lab-verified <div class="tooltip" id="tt-lab">Independent lab verification. Reports & protocols in the Data Room after e-NDA.</div></div>
-                <div class="badge" id="txt-badge-disclosure">No process disclosure <div class="tooltip" id="tt-proc">Operating principles are not disclosed on public pages.</div></div>
-            </div>
-
             <div class="metric-card">
                 <div class="salt-reduction">
                     <div>
@@ -472,13 +471,13 @@
             <div class="split-metrics">
                 <div class="sub-metric">
                     <h3 id="txt-cl-h">Chloride (Cl&oline;)</h3>
-                    <div class="data-row"><span id="txt-raw">Raw sample:</span> <span>48,000 mg/L</span></div>
+                    <div class="data-row"><span id="txt-raw">Raw sample:</span> <span id="val-cl-raw">48,000 mg/L</span></div>
                     <div class="data-row"><span id="txt-after">After AQUINTAQA:</span> <span class="val-after">52 mg/L</span></div>
                     <div class="status-check" id="txt-status-1">✓ well below benchmark</div>
                 </div>
                 <div class="sub-metric">
                     <h3 id="txt-na-h">Sodium (Na&plus;)</h3>
-                    <div class="data-row"><span id="txt-raw2">Raw sample:</span> <span>23,200 mg/L</span></div>
+                    <div class="data-row"><span id="txt-raw2">Raw sample:</span> <span id="val-na-raw">23,200 mg/L</span></div>
                     <div class="data-row"><span id="txt-after2">After AQUINTAQA:</span> <span class="val-after">15.5 mg/L</span></div>
                     <div class="status-check" id="txt-status-2">✓ well below benchmark</div>
                 </div>
@@ -491,11 +490,20 @@
                 <span>🔬</span> <span id="txt-metric-particles">Effective removal of particles < 1 &mu;m (colloids/suspended)</span>
             </div>
 
-            <p class="header-micro" style="margin-top: 30px;" id="txt-footer-disclaimer">Figures shown are safe to disclose. Full tables, chain-of-custody, and lab reports available after e-NDA.</p>
+            <p class="header-micro" style="margin-top: 40px; text-align: left;" id="txt-footer-disclaimer">Figures shown are safe to disclose. Full tables, chain-of-custody, and lab reports available after e-NDA.</p>
         </section>
 
         <!-- RIGHT COLUMN -->
-        <section class="col-right reveal" style="transition-delay: 0.2s;">
+        <section class="col-right reveal" style="transition-delay: 0.15s;">
+            <!-- Badges positioned here above the table -->
+            <div class="badge-row">
+                <div class="badge">WHO <div class="tooltip" id="tt-who">World Health Organization (WHO)</div></div>
+                <div class="badge">EU <div class="tooltip" id="tt-eu">European Union (EU)</div></div>
+                <div class="badge">US EPA <div class="tooltip" id="tt-us">U.S. Environmental Protection Agency (US EPA)</div></div>
+                <div class="badge">Lab-verified <div class="tooltip" id="tt-lab">Independent lab verification. Reports & protocols in the Data Room after e-NDA.</div></div>
+                <div class="badge" id="txt-badge-disclosure">No process disclosure <div class="tooltip" id="tt-proc">Operating principles are not disclosed on public pages.</div></div>
+            </div>
+
             <h2 class="table-title" id="txt-table-h">Quality trends before/after (no values)</h2>
             <p class="table-sub" id="txt-table-s">Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).</p>
 
@@ -508,7 +516,7 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <!-- JS will fill this for localization -->
+                    <!-- JS fills table -->
                 </tbody>
             </table>
 
@@ -517,9 +525,9 @@
             </button>
 
             <div class="legend">
-                <span><span class="dot red" style="display:inline-block; vertical-align:middle; margin-right:5px;"></span> <span id="txt-leg-red">Red &uarr; : elevated baseline in raw water</span></span>
-                <span><span class="dot green" style="display:inline-block; vertical-align:middle; margin-right:5px;"></span> <span id="txt-leg-green">Green : within WHO/EU/US EPA benchmarks</span></span>
-                <span><span class="dot blue" style="display:inline-block; vertical-align:middle; margin-right:5px;"></span> <span id="txt-leg-blue">Blue : above benchmarks (if applicable)</span></span>
+                <span><span class="dot red" style="display:inline-block; vertical-align:middle; margin-right:8px;"></span> <span id="txt-leg-red">Red &uarr; : elevated baseline in raw water</span></span>
+                <span><span class="dot green" style="display:inline-block; vertical-align:middle; margin-right:8px;"></span> <span id="txt-leg-green">Green : within WHO/EU/US EPA benchmarks</span></span>
+                <span><span class="dot blue" style="display:inline-block; vertical-align:middle; margin-right:8px;"></span> <span id="txt-leg-blue">Blue : above benchmarks (if applicable)</span></span>
             </div>
 
             <div class="nda-note" id="txt-nda-note">
@@ -533,7 +541,6 @@
         <div class="footer-line-right"></div>
         <div class="logo-container">
             <div class="logo-circle">
-                <!-- SVG AQUINTAQA LOGO -->
                 <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -569,7 +576,7 @@
             footerDisclaimer: "Figures shown are safe to disclose. Full tables, chain-of-custody, and lab reports available after e-NDA.",
             tableH: "Quality trends before/after (no values)",
             tableS: "Status comparison vs WHO/EU/US EPA benchmarks. Full numeric tables are available in the Data Room (e-NDA).",
-            viewMore: "View more parameters...",
+            viewMore: "View more parameters... >",
             viewLess: "Show less",
             legRed: "Red \u2191 : elevated baseline in raw water",
             legGreen: "Green : within WHO/EU/US EPA benchmarks",
@@ -670,9 +677,8 @@
         document.getElementById('txt-leg-blue').innerText = l.legBlue;
         document.getElementById('txt-nda-note').innerText = l.nda;
 
-        // Number updates
-        document.querySelector('.sub-metric:nth-child(1) .data-row:nth-child(2) span:last-child').innerText = l.clVal;
-        document.querySelector('.sub-metric:nth-child(2) .data-row:nth-child(2) span:last-child').innerText = l.naVal;
+        document.getElementById('val-cl-raw').innerText = l.clVal;
+        document.getElementById('val-na-raw').innerText = l.naVal;
 
         renderTable();
     }
@@ -682,8 +688,10 @@
         body.innerHTML = '';
         data[currentLang].table.forEach(row => {
             const tr = document.createElement('tr');
-            if (row[3]) tr.className = 'hidden-rows';
-            if (row[3] && expanded) tr.style.display = 'table-row';
+            if (row[3]) {
+                tr.className = 'hidden-rows';
+                if (expanded) tr.style.display = 'table-row';
+            }
             
             tr.innerHTML = `
                 <td>${row[0]}</td>
@@ -701,7 +709,6 @@
         document.getElementById('txt-view-more').innerText = expanded ? data[currentLang].viewLess : data[currentLang].viewMore;
     }
 
-    // Reveal animation on scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('active');
@@ -710,7 +717,6 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Init
     setLang('en');
 </script>
 
